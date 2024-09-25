@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,36,202,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,38,202,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,1,0,4,0,34,8,0,11,0,12,0,35,1,1,1,1,1,1,1,1,
         1,1,1,1,1,1,1,1,1,1,3,1,47,8,1,1,2,1,2,1,2,1,2,3,2,53,8,2,1,2,1,
@@ -26,7 +26,7 @@ def serializedATN():
         12,12,12,179,9,12,1,13,1,13,1,13,1,13,1,13,5,13,186,8,13,10,13,12,
         13,189,9,13,3,13,191,8,13,1,13,1,13,1,14,1,14,1,14,1,14,1,14,1,15,
         1,15,1,15,0,1,24,16,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,0,
-        3,1,0,1,2,1,0,23,26,1,0,27,32,212,0,33,1,0,0,0,2,46,1,0,0,0,4,48,
+        3,1,0,1,2,1,0,28,31,1,0,32,37,212,0,33,1,0,0,0,2,46,1,0,0,0,4,48,
         1,0,0,0,6,56,1,0,0,0,8,61,1,0,0,0,10,90,1,0,0,0,12,92,1,0,0,0,14,
         101,1,0,0,0,16,121,1,0,0,0,18,136,1,0,0,0,20,153,1,0,0,0,22,157,
         1,0,0,0,24,167,1,0,0,0,26,180,1,0,0,0,28,194,1,0,0,0,30,199,1,0,
@@ -35,48 +35,48 @@ def serializedATN():
         47,3,10,5,0,41,47,3,14,7,0,42,47,3,16,8,0,43,47,3,18,9,0,44,47,3,
         20,10,0,45,47,3,22,11,0,46,37,1,0,0,0,46,38,1,0,0,0,46,39,1,0,0,
         0,46,40,1,0,0,0,46,41,1,0,0,0,46,42,1,0,0,0,46,43,1,0,0,0,46,44,
-        1,0,0,0,46,45,1,0,0,0,47,3,1,0,0,0,48,49,7,0,0,0,49,52,5,33,0,0,
-        50,51,5,3,0,0,51,53,3,24,12,0,52,50,1,0,0,0,52,53,1,0,0,0,53,54,
-        1,0,0,0,54,55,5,4,0,0,55,5,1,0,0,0,56,57,5,33,0,0,57,58,5,3,0,0,
-        58,59,3,24,12,0,59,60,5,4,0,0,60,7,1,0,0,0,61,62,5,5,0,0,62,63,3,
-        24,12,0,63,64,5,6,0,0,64,67,3,12,6,0,65,66,5,7,0,0,66,68,3,12,6,
-        0,67,65,1,0,0,0,67,68,1,0,0,0,68,9,1,0,0,0,69,70,5,8,0,0,70,71,3,
-        24,12,0,71,72,5,6,0,0,72,73,3,12,6,0,73,91,1,0,0,0,74,75,5,9,0,0,
-        75,76,5,33,0,0,76,77,5,10,0,0,77,78,5,11,0,0,78,83,3,24,12,0,79,
-        80,5,12,0,0,80,82,3,24,12,0,81,79,1,0,0,0,82,85,1,0,0,0,83,81,1,
-        0,0,0,83,84,1,0,0,0,84,86,1,0,0,0,85,83,1,0,0,0,86,87,5,13,0,0,87,
-        88,5,6,0,0,88,89,3,12,6,0,89,91,1,0,0,0,90,69,1,0,0,0,90,74,1,0,
-        0,0,91,11,1,0,0,0,92,96,5,14,0,0,93,95,3,2,1,0,94,93,1,0,0,0,95,
+        1,0,0,0,46,45,1,0,0,0,47,3,1,0,0,0,48,49,7,0,0,0,49,52,5,14,0,0,
+        50,51,5,38,0,0,51,53,3,24,12,0,52,50,1,0,0,0,52,53,1,0,0,0,53,54,
+        1,0,0,0,54,55,5,26,0,0,55,5,1,0,0,0,56,57,5,14,0,0,57,58,5,38,0,
+        0,58,59,3,24,12,0,59,60,5,26,0,0,60,7,1,0,0,0,61,62,5,3,0,0,62,63,
+        3,24,12,0,63,64,5,4,0,0,64,67,3,12,6,0,65,66,5,5,0,0,66,68,3,12,
+        6,0,67,65,1,0,0,0,67,68,1,0,0,0,68,9,1,0,0,0,69,70,5,6,0,0,70,71,
+        3,24,12,0,71,72,5,4,0,0,72,73,3,12,6,0,73,91,1,0,0,0,74,75,5,7,0,
+        0,75,76,5,14,0,0,76,77,5,8,0,0,77,78,5,24,0,0,78,83,3,24,12,0,79,
+        80,5,27,0,0,80,82,3,24,12,0,81,79,1,0,0,0,82,85,1,0,0,0,83,81,1,
+        0,0,0,83,84,1,0,0,0,84,86,1,0,0,0,85,83,1,0,0,0,86,87,5,25,0,0,87,
+        88,5,4,0,0,88,89,3,12,6,0,89,91,1,0,0,0,90,69,1,0,0,0,90,74,1,0,
+        0,0,91,11,1,0,0,0,92,96,5,22,0,0,93,95,3,2,1,0,94,93,1,0,0,0,95,
         98,1,0,0,0,96,94,1,0,0,0,96,97,1,0,0,0,97,99,1,0,0,0,98,96,1,0,0,
-        0,99,100,5,15,0,0,100,13,1,0,0,0,101,102,5,16,0,0,102,103,3,30,15,
-        0,103,104,5,33,0,0,104,116,5,17,0,0,105,106,3,30,15,0,106,113,5,
-        33,0,0,107,108,5,12,0,0,108,109,3,30,15,0,109,110,5,33,0,0,110,112,
+        0,99,100,5,23,0,0,100,13,1,0,0,0,101,102,5,9,0,0,102,103,3,30,15,
+        0,103,104,5,14,0,0,104,116,5,20,0,0,105,106,3,30,15,0,106,113,5,
+        14,0,0,107,108,5,27,0,0,108,109,3,30,15,0,109,110,5,14,0,0,110,112,
         1,0,0,0,111,107,1,0,0,0,112,115,1,0,0,0,113,111,1,0,0,0,113,114,
         1,0,0,0,114,117,1,0,0,0,115,113,1,0,0,0,116,105,1,0,0,0,116,117,
-        1,0,0,0,117,118,1,0,0,0,118,119,5,18,0,0,119,120,3,12,6,0,120,15,
-        1,0,0,0,121,122,5,33,0,0,122,131,5,17,0,0,123,128,3,24,12,0,124,
-        125,5,12,0,0,125,127,3,24,12,0,126,124,1,0,0,0,127,130,1,0,0,0,128,
+        1,0,0,0,117,118,1,0,0,0,118,119,5,21,0,0,119,120,3,12,6,0,120,15,
+        1,0,0,0,121,122,5,14,0,0,122,131,5,20,0,0,123,128,3,24,12,0,124,
+        125,5,27,0,0,125,127,3,24,12,0,126,124,1,0,0,0,127,130,1,0,0,0,128,
         126,1,0,0,0,128,129,1,0,0,0,129,132,1,0,0,0,130,128,1,0,0,0,131,
-        123,1,0,0,0,131,132,1,0,0,0,132,133,1,0,0,0,133,134,5,18,0,0,134,
-        135,5,4,0,0,135,17,1,0,0,0,136,137,5,19,0,0,137,138,3,30,15,0,138,
-        139,5,33,0,0,139,140,5,11,0,0,140,141,3,24,12,0,141,142,5,13,0,0,
-        142,143,5,4,0,0,143,19,1,0,0,0,144,145,5,20,0,0,145,146,5,17,0,0,
-        146,147,3,24,12,0,147,148,5,18,0,0,148,154,1,0,0,0,149,150,5,21,
-        0,0,150,151,5,17,0,0,151,152,5,33,0,0,152,154,5,18,0,0,153,144,1,
-        0,0,0,153,149,1,0,0,0,154,155,1,0,0,0,155,156,5,4,0,0,156,21,1,0,
-        0,0,157,158,5,22,0,0,158,159,3,24,12,0,159,160,5,4,0,0,160,23,1,
-        0,0,0,161,162,6,12,-1,0,162,168,3,26,13,0,163,168,3,28,14,0,164,
-        168,5,33,0,0,165,168,5,34,0,0,166,168,5,35,0,0,167,161,1,0,0,0,167,
+        123,1,0,0,0,131,132,1,0,0,0,132,133,1,0,0,0,133,134,5,21,0,0,134,
+        135,5,26,0,0,135,17,1,0,0,0,136,137,5,10,0,0,137,138,3,30,15,0,138,
+        139,5,14,0,0,139,140,5,24,0,0,140,141,3,24,12,0,141,142,5,25,0,0,
+        142,143,5,26,0,0,143,19,1,0,0,0,144,145,5,11,0,0,145,146,5,20,0,
+        0,146,147,3,24,12,0,147,148,5,21,0,0,148,154,1,0,0,0,149,150,5,12,
+        0,0,150,151,5,20,0,0,151,152,5,14,0,0,152,154,5,21,0,0,153,144,1,
+        0,0,0,153,149,1,0,0,0,154,155,1,0,0,0,155,156,5,26,0,0,156,21,1,
+        0,0,0,157,158,5,13,0,0,158,159,3,24,12,0,159,160,5,26,0,0,160,23,
+        1,0,0,0,161,162,6,12,-1,0,162,168,3,26,13,0,163,168,3,28,14,0,164,
+        168,5,14,0,0,165,168,5,15,0,0,166,168,5,16,0,0,167,161,1,0,0,0,167,
         163,1,0,0,0,167,164,1,0,0,0,167,165,1,0,0,0,167,166,1,0,0,0,168,
         177,1,0,0,0,169,170,10,7,0,0,170,171,7,1,0,0,171,176,3,24,12,8,172,
         173,10,6,0,0,173,174,7,2,0,0,174,176,3,24,12,7,175,169,1,0,0,0,175,
         172,1,0,0,0,176,179,1,0,0,0,177,175,1,0,0,0,177,178,1,0,0,0,178,
-        25,1,0,0,0,179,177,1,0,0,0,180,181,5,33,0,0,181,190,5,17,0,0,182,
-        187,3,24,12,0,183,184,5,12,0,0,184,186,3,24,12,0,185,183,1,0,0,0,
+        25,1,0,0,0,179,177,1,0,0,0,180,181,5,14,0,0,181,190,5,20,0,0,182,
+        187,3,24,12,0,183,184,5,27,0,0,184,186,3,24,12,0,185,183,1,0,0,0,
         186,189,1,0,0,0,187,185,1,0,0,0,187,188,1,0,0,0,188,191,1,0,0,0,
         189,187,1,0,0,0,190,182,1,0,0,0,190,191,1,0,0,0,191,192,1,0,0,0,
-        192,193,5,18,0,0,193,27,1,0,0,0,194,195,5,33,0,0,195,196,5,11,0,
-        0,196,197,3,24,12,0,197,198,5,13,0,0,198,29,1,0,0,0,199,200,7,0,
+        192,193,5,21,0,0,193,27,1,0,0,0,194,195,5,14,0,0,195,196,5,24,0,
+        0,196,197,3,24,12,0,197,198,5,25,0,0,198,29,1,0,0,0,199,200,7,0,
         0,0,200,31,1,0,0,0,17,35,46,52,67,83,90,96,113,116,128,131,153,167,
         175,177,187,190
     ]
@@ -91,22 +91,22 @@ class PyCParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'int'", "'string'", "'='", "';'", "'if'", 
-                     "':'", "'else:'", "'while'", "'for'", "'in'", "'['", 
-                     "','", "']'", "'{'", "'}'", "'func'", "'('", "')'", 
-                     "'array'", "'malloc'", "'free'", "'return'", "'*'", 
-                     "'/'", "'+'", "'-'", "'<'", "'>'", "'<='", "'>='", 
-                     "'=='", "'!='" ]
+    literalNames = [ "<INVALID>", "'int'", "'string'", "'if'", "':'", "'else:'", 
+                     "'while'", "'for'", "'in'", "'func'", "'array'", "'malloc'", 
+                     "'free'", "'return'", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "'('", "')'", 
+                     "'{'", "'}'", "'['", "']'", "';'", "','", "'+'", "'-'", 
+                     "'*'", "'/'", "'>'", "'<'", "'>='", "'<='", "'=='", 
+                     "'!='", "'='" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "ID", "NUMBER", "STRING", "WS" ]
+                      "<INVALID>", "<INVALID>", "ID", "NUMBER", "STRING", 
+                      "WS", "COMMENT", "COMMENT_BLOCK", "LPAREN", "RPAREN", 
+                      "LBRACE", "RBRACE", "LBRACK", "RBRACK", "SEMI", "COMMA", 
+                      "PLUS", "MINUS", "MULT", "DIV", "GT", "LT", "GE", 
+                      "LE", "EQ", "NEQ", "ASSIGN" ]
 
     RULE_program = 0
     RULE_statement = 1
@@ -144,29 +144,31 @@ class PyCParser ( Parser ):
     T__10=11
     T__11=12
     T__12=13
-    T__13=14
-    T__14=15
-    T__15=16
-    T__16=17
-    T__17=18
-    T__18=19
-    T__19=20
-    T__20=21
-    T__21=22
-    T__22=23
-    T__23=24
-    T__24=25
-    T__25=26
-    T__26=27
-    T__27=28
-    T__28=29
-    T__29=30
-    T__30=31
-    T__31=32
-    ID=33
-    NUMBER=34
-    STRING=35
-    WS=36
+    ID=14
+    NUMBER=15
+    STRING=16
+    WS=17
+    COMMENT=18
+    COMMENT_BLOCK=19
+    LPAREN=20
+    RPAREN=21
+    LBRACE=22
+    RBRACE=23
+    LBRACK=24
+    RBRACK=25
+    SEMI=26
+    COMMA=27
+    PLUS=28
+    MINUS=29
+    MULT=30
+    DIV=31
+    GT=32
+    LT=33
+    GE=34
+    LE=35
+    EQ=36
+    NEQ=37
+    ASSIGN=38
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -221,7 +223,7 @@ class PyCParser ( Parser ):
                 self.state = 35 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 8597865254) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 32462) != 0)):
                     break
 
         except RecognitionException as re:
@@ -372,6 +374,12 @@ class PyCParser ( Parser ):
         def ID(self):
             return self.getToken(PyCParser.ID, 0)
 
+        def SEMI(self):
+            return self.getToken(PyCParser.SEMI, 0)
+
+        def ASSIGN(self):
+            return self.getToken(PyCParser.ASSIGN, 0)
+
         def expr(self):
             return self.getTypedRuleContext(PyCParser.ExprContext,0)
 
@@ -409,15 +417,15 @@ class PyCParser ( Parser ):
             self.state = 52
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==3:
+            if _la==38:
                 self.state = 50
-                self.match(PyCParser.T__2)
+                self.match(PyCParser.ASSIGN)
                 self.state = 51
                 self.expr(0)
 
 
             self.state = 54
-            self.match(PyCParser.T__3)
+            self.match(PyCParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -437,9 +445,15 @@ class PyCParser ( Parser ):
         def ID(self):
             return self.getToken(PyCParser.ID, 0)
 
+        def ASSIGN(self):
+            return self.getToken(PyCParser.ASSIGN, 0)
+
         def expr(self):
             return self.getTypedRuleContext(PyCParser.ExprContext,0)
 
+
+        def SEMI(self):
+            return self.getToken(PyCParser.SEMI, 0)
 
         def getRuleIndex(self):
             return PyCParser.RULE_assignment
@@ -464,11 +478,11 @@ class PyCParser ( Parser ):
             self.state = 56
             self.match(PyCParser.ID)
             self.state = 57
-            self.match(PyCParser.T__2)
+            self.match(PyCParser.ASSIGN)
             self.state = 58
             self.expr(0)
             self.state = 59
-            self.match(PyCParser.T__3)
+            self.match(PyCParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -518,19 +532,19 @@ class PyCParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 61
-            self.match(PyCParser.T__4)
+            self.match(PyCParser.T__2)
             self.state = 62
             self.expr(0)
             self.state = 63
-            self.match(PyCParser.T__5)
+            self.match(PyCParser.T__3)
             self.state = 64
             self.block()
             self.state = 67
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==7:
+            if _la==5:
                 self.state = 65
-                self.match(PyCParser.T__6)
+                self.match(PyCParser.T__4)
                 self.state = 66
                 self.block()
 
@@ -565,6 +579,18 @@ class PyCParser ( Parser ):
         def ID(self):
             return self.getToken(PyCParser.ID, 0)
 
+        def LBRACK(self):
+            return self.getToken(PyCParser.LBRACK, 0)
+
+        def RBRACK(self):
+            return self.getToken(PyCParser.RBRACK, 0)
+
+        def COMMA(self, i:int=None):
+            if i is None:
+                return self.getTokens(PyCParser.COMMA)
+            else:
+                return self.getToken(PyCParser.COMMA, i)
+
         def getRuleIndex(self):
             return PyCParser.RULE_loop
 
@@ -588,35 +614,35 @@ class PyCParser ( Parser ):
             self.state = 90
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [8]:
+            if token in [6]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 69
-                self.match(PyCParser.T__7)
+                self.match(PyCParser.T__5)
                 self.state = 70
                 self.expr(0)
                 self.state = 71
-                self.match(PyCParser.T__5)
+                self.match(PyCParser.T__3)
                 self.state = 72
                 self.block()
                 pass
-            elif token in [9]:
+            elif token in [7]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 74
-                self.match(PyCParser.T__8)
+                self.match(PyCParser.T__6)
                 self.state = 75
                 self.match(PyCParser.ID)
                 self.state = 76
-                self.match(PyCParser.T__9)
+                self.match(PyCParser.T__7)
                 self.state = 77
-                self.match(PyCParser.T__10)
+                self.match(PyCParser.LBRACK)
                 self.state = 78
                 self.expr(0)
                 self.state = 83
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==12:
+                while _la==27:
                     self.state = 79
-                    self.match(PyCParser.T__11)
+                    self.match(PyCParser.COMMA)
                     self.state = 80
                     self.expr(0)
                     self.state = 85
@@ -624,9 +650,9 @@ class PyCParser ( Parser ):
                     _la = self._input.LA(1)
 
                 self.state = 86
-                self.match(PyCParser.T__12)
+                self.match(PyCParser.RBRACK)
                 self.state = 87
-                self.match(PyCParser.T__5)
+                self.match(PyCParser.T__3)
                 self.state = 88
                 self.block()
                 pass
@@ -648,6 +674,12 @@ class PyCParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+
+        def LBRACE(self):
+            return self.getToken(PyCParser.LBRACE, 0)
+
+        def RBRACE(self):
+            return self.getToken(PyCParser.RBRACE, 0)
 
         def statement(self, i:int=None):
             if i is None:
@@ -678,11 +710,11 @@ class PyCParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 92
-            self.match(PyCParser.T__13)
+            self.match(PyCParser.LBRACE)
             self.state = 96
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 8597865254) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 32462) != 0):
                 self.state = 93
                 self.statement()
                 self.state = 98
@@ -690,7 +722,7 @@ class PyCParser ( Parser ):
                 _la = self._input.LA(1)
 
             self.state = 99
-            self.match(PyCParser.T__14)
+            self.match(PyCParser.RBRACE)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -720,9 +752,21 @@ class PyCParser ( Parser ):
             else:
                 return self.getToken(PyCParser.ID, i)
 
+        def LPAREN(self):
+            return self.getToken(PyCParser.LPAREN, 0)
+
+        def RPAREN(self):
+            return self.getToken(PyCParser.RPAREN, 0)
+
         def block(self):
             return self.getTypedRuleContext(PyCParser.BlockContext,0)
 
+
+        def COMMA(self, i:int=None):
+            if i is None:
+                return self.getTokens(PyCParser.COMMA)
+            else:
+                return self.getToken(PyCParser.COMMA, i)
 
         def getRuleIndex(self):
             return PyCParser.RULE_funcDeclaration
@@ -746,13 +790,13 @@ class PyCParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 101
-            self.match(PyCParser.T__15)
+            self.match(PyCParser.T__8)
             self.state = 102
             self.type_()
             self.state = 103
             self.match(PyCParser.ID)
             self.state = 104
-            self.match(PyCParser.T__16)
+            self.match(PyCParser.LPAREN)
             self.state = 116
             self._errHandler.sync(self)
             _la = self._input.LA(1)
@@ -764,9 +808,9 @@ class PyCParser ( Parser ):
                 self.state = 113
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==12:
+                while _la==27:
                     self.state = 107
-                    self.match(PyCParser.T__11)
+                    self.match(PyCParser.COMMA)
                     self.state = 108
                     self.type_()
                     self.state = 109
@@ -778,7 +822,7 @@ class PyCParser ( Parser ):
 
 
             self.state = 118
-            self.match(PyCParser.T__17)
+            self.match(PyCParser.RPAREN)
             self.state = 119
             self.block()
         except RecognitionException as re:
@@ -800,12 +844,27 @@ class PyCParser ( Parser ):
         def ID(self):
             return self.getToken(PyCParser.ID, 0)
 
+        def LPAREN(self):
+            return self.getToken(PyCParser.LPAREN, 0)
+
+        def RPAREN(self):
+            return self.getToken(PyCParser.RPAREN, 0)
+
+        def SEMI(self):
+            return self.getToken(PyCParser.SEMI, 0)
+
         def expr(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(PyCParser.ExprContext)
             else:
                 return self.getTypedRuleContext(PyCParser.ExprContext,i)
 
+
+        def COMMA(self, i:int=None):
+            if i is None:
+                return self.getTokens(PyCParser.COMMA)
+            else:
+                return self.getToken(PyCParser.COMMA, i)
 
         def getRuleIndex(self):
             return PyCParser.RULE_funcCall
@@ -831,19 +890,19 @@ class PyCParser ( Parser ):
             self.state = 121
             self.match(PyCParser.ID)
             self.state = 122
-            self.match(PyCParser.T__16)
+            self.match(PyCParser.LPAREN)
             self.state = 131
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 60129542144) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 114688) != 0):
                 self.state = 123
                 self.expr(0)
                 self.state = 128
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==12:
+                while _la==27:
                     self.state = 124
-                    self.match(PyCParser.T__11)
+                    self.match(PyCParser.COMMA)
                     self.state = 125
                     self.expr(0)
                     self.state = 130
@@ -853,9 +912,9 @@ class PyCParser ( Parser ):
 
 
             self.state = 133
-            self.match(PyCParser.T__17)
+            self.match(PyCParser.RPAREN)
             self.state = 134
-            self.match(PyCParser.T__3)
+            self.match(PyCParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -879,9 +938,18 @@ class PyCParser ( Parser ):
         def ID(self):
             return self.getToken(PyCParser.ID, 0)
 
+        def LBRACK(self):
+            return self.getToken(PyCParser.LBRACK, 0)
+
         def expr(self):
             return self.getTypedRuleContext(PyCParser.ExprContext,0)
 
+
+        def RBRACK(self):
+            return self.getToken(PyCParser.RBRACK, 0)
+
+        def SEMI(self):
+            return self.getToken(PyCParser.SEMI, 0)
 
         def getRuleIndex(self):
             return PyCParser.RULE_arrayDeclaration
@@ -904,19 +972,19 @@ class PyCParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 136
-            self.match(PyCParser.T__18)
+            self.match(PyCParser.T__9)
             self.state = 137
             self.type_()
             self.state = 138
             self.match(PyCParser.ID)
             self.state = 139
-            self.match(PyCParser.T__10)
+            self.match(PyCParser.LBRACK)
             self.state = 140
             self.expr(0)
             self.state = 141
-            self.match(PyCParser.T__12)
+            self.match(PyCParser.RBRACK)
             self.state = 142
-            self.match(PyCParser.T__3)
+            self.match(PyCParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -933,9 +1001,18 @@ class PyCParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
+        def SEMI(self):
+            return self.getToken(PyCParser.SEMI, 0)
+
+        def LPAREN(self):
+            return self.getToken(PyCParser.LPAREN, 0)
+
         def expr(self):
             return self.getTypedRuleContext(PyCParser.ExprContext,0)
 
+
+        def RPAREN(self):
+            return self.getToken(PyCParser.RPAREN, 0)
 
         def ID(self):
             return self.getToken(PyCParser.ID, 0)
@@ -963,31 +1040,31 @@ class PyCParser ( Parser ):
             self.state = 153
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [20]:
+            if token in [11]:
                 self.state = 144
-                self.match(PyCParser.T__19)
+                self.match(PyCParser.T__10)
                 self.state = 145
-                self.match(PyCParser.T__16)
+                self.match(PyCParser.LPAREN)
                 self.state = 146
                 self.expr(0)
                 self.state = 147
-                self.match(PyCParser.T__17)
+                self.match(PyCParser.RPAREN)
                 pass
-            elif token in [21]:
+            elif token in [12]:
                 self.state = 149
-                self.match(PyCParser.T__20)
+                self.match(PyCParser.T__11)
                 self.state = 150
-                self.match(PyCParser.T__16)
+                self.match(PyCParser.LPAREN)
                 self.state = 151
                 self.match(PyCParser.ID)
                 self.state = 152
-                self.match(PyCParser.T__17)
+                self.match(PyCParser.RPAREN)
                 pass
             else:
                 raise NoViableAltException(self)
 
             self.state = 155
-            self.match(PyCParser.T__3)
+            self.match(PyCParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1007,6 +1084,9 @@ class PyCParser ( Parser ):
         def expr(self):
             return self.getTypedRuleContext(PyCParser.ExprContext,0)
 
+
+        def SEMI(self):
+            return self.getToken(PyCParser.SEMI, 0)
 
         def getRuleIndex(self):
             return PyCParser.RULE_returnStatement
@@ -1029,11 +1109,11 @@ class PyCParser ( Parser ):
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 157
-            self.match(PyCParser.T__21)
+            self.match(PyCParser.T__12)
             self.state = 158
             self.expr(0)
             self.state = 159
-            self.match(PyCParser.T__3)
+            self.match(PyCParser.SEMI)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1073,6 +1153,36 @@ class PyCParser ( Parser ):
             else:
                 return self.getTypedRuleContext(PyCParser.ExprContext,i)
 
+
+        def MULT(self):
+            return self.getToken(PyCParser.MULT, 0)
+
+        def DIV(self):
+            return self.getToken(PyCParser.DIV, 0)
+
+        def PLUS(self):
+            return self.getToken(PyCParser.PLUS, 0)
+
+        def MINUS(self):
+            return self.getToken(PyCParser.MINUS, 0)
+
+        def LT(self):
+            return self.getToken(PyCParser.LT, 0)
+
+        def GT(self):
+            return self.getToken(PyCParser.GT, 0)
+
+        def LE(self):
+            return self.getToken(PyCParser.LE, 0)
+
+        def GE(self):
+            return self.getToken(PyCParser.GE, 0)
+
+        def EQ(self):
+            return self.getToken(PyCParser.EQ, 0)
+
+        def NEQ(self):
+            return self.getToken(PyCParser.NEQ, 0)
 
         def getRuleIndex(self):
             return PyCParser.RULE_expr
@@ -1147,7 +1257,7 @@ class PyCParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
                         self.state = 170
                         _la = self._input.LA(1)
-                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 125829120) != 0)):
+                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 4026531840) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -1165,7 +1275,7 @@ class PyCParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
                         self.state = 173
                         _la = self._input.LA(1)
-                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 8455716864) != 0)):
+                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 270582939648) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -1198,12 +1308,24 @@ class PyCParser ( Parser ):
         def ID(self):
             return self.getToken(PyCParser.ID, 0)
 
+        def LPAREN(self):
+            return self.getToken(PyCParser.LPAREN, 0)
+
+        def RPAREN(self):
+            return self.getToken(PyCParser.RPAREN, 0)
+
         def expr(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(PyCParser.ExprContext)
             else:
                 return self.getTypedRuleContext(PyCParser.ExprContext,i)
 
+
+        def COMMA(self, i:int=None):
+            if i is None:
+                return self.getTokens(PyCParser.COMMA)
+            else:
+                return self.getToken(PyCParser.COMMA, i)
 
         def getRuleIndex(self):
             return PyCParser.RULE_funcCallExpr
@@ -1229,19 +1351,19 @@ class PyCParser ( Parser ):
             self.state = 180
             self.match(PyCParser.ID)
             self.state = 181
-            self.match(PyCParser.T__16)
+            self.match(PyCParser.LPAREN)
             self.state = 190
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 60129542144) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & 114688) != 0):
                 self.state = 182
                 self.expr(0)
                 self.state = 187
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==12:
+                while _la==27:
                     self.state = 183
-                    self.match(PyCParser.T__11)
+                    self.match(PyCParser.COMMA)
                     self.state = 184
                     self.expr(0)
                     self.state = 189
@@ -1251,7 +1373,7 @@ class PyCParser ( Parser ):
 
 
             self.state = 192
-            self.match(PyCParser.T__17)
+            self.match(PyCParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1271,9 +1393,15 @@ class PyCParser ( Parser ):
         def ID(self):
             return self.getToken(PyCParser.ID, 0)
 
+        def LBRACK(self):
+            return self.getToken(PyCParser.LBRACK, 0)
+
         def expr(self):
             return self.getTypedRuleContext(PyCParser.ExprContext,0)
 
+
+        def RBRACK(self):
+            return self.getToken(PyCParser.RBRACK, 0)
 
         def getRuleIndex(self):
             return PyCParser.RULE_arrayAccess
@@ -1298,11 +1426,11 @@ class PyCParser ( Parser ):
             self.state = 194
             self.match(PyCParser.ID)
             self.state = 195
-            self.match(PyCParser.T__10)
+            self.match(PyCParser.LBRACK)
             self.state = 196
             self.expr(0)
             self.state = 197
-            self.match(PyCParser.T__12)
+            self.match(PyCParser.RBRACK)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
