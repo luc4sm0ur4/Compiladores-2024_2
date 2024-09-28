@@ -1,9 +1,11 @@
+import tkinter as tk
+from tkinter import scrolledtext
 from antlr4 import *
 from PyCLexer import PyCLexer
 from PyCParser import PyCParser
 from PyCListener import PyCListener
 
-# Definição da tabela de símbolos
+# Classe para armazenar símbolos (variáveis, funções, arrays, etc.), além de exibir erros, caso exista
 class SymbolTable:
     def __init__(self):
         self.symbols = {}
@@ -24,42 +26,53 @@ class SymbolTable:
         return self.symbols[name]
 
     def print_table(self):
-        print("Tabela de Símbolos:")
+        result = "Tabela de Símbolos:\n"
         for name, info in self.symbols.items():
-            print(f"Nome: {name}, Tipo: {info['type']}, Valor: {info['value']}")
+            result += f"Nome: {name}, Tipo: {info['type']}, Valor: {info['value']}\n"
+        return result
 
-# Classe que define o interpretador da linguagem PyC
+# Classe que implementa o interpretador da linguagem PyC
 class PyCInterpreter(PyCListener):
     def __init__(self):
-        self.symbol_table = SymbolTable()  # Instancia a tabela de símbolos
-        self.memory = {}         # Simula o gerenciamento de memória
-        self.return_value = None # Variável de captura de valor de retorno de funções
+        self.symbol_table = SymbolTable()
+        self.memory = {}
+        self.return_value = None
+        self.output = ""  # Faz o armazenamento do resultado do processamento
 
-    # Método para tratar a declaração de variáveis
     def enterDeclaration(self, ctx):
-        var_type = ctx.getChild(0).getText()  # Tipo da variável (int ou string)
-        var_name = ctx.ID().getText()         # Nome da variável
-        value = None
-        if ctx.expr():  # Avalia o valor da expressão, se houver
-            value = self.evaluate_expression(ctx.expr())
+        var_type = ctx.getChild(0).getText()
+        var_name = ctx.ID().getText()
+        value = self.evaluate_expression(ctx.expr()) if ctx.expr() else None
         self.symbol_table.add_symbol(var_name, var_type, value)
-        print(f"Declaração: {var_type} {var_name} = {value}")
+        self.output += f"Declaração: {var_type} {var_name} = {value}\n"
 
-    # Método para tratar a atribuição de valores a variáveis
     def enterAssignment(self, ctx):
         var_name = ctx.ID().getText()
         value = self.evaluate_expression(ctx.expr())
         self.symbol_table.update_symbol(var_name, value)
-        print(f"Atribuição: {var_name} = {value}")
+        self.output += f"Atribuição: {var_name} = {value}\n"
 
-    # Método para tratar a declaração de arrays
     def enterArrayDeclaration(self, ctx):
         array_name = ctx.ID().getText()
         size = self.evaluate_expression(ctx.expr())
-        self.symbol_table.add_symbol(array_name, 'array', [0]*size)
-        print(f"Array {array_name} criado com tamanho {size}")
+        self.symbol_table.add_symbol(array_name, 'array', [0] * size)
+        self.output += f"Array {array_name} criado com tamanho {size}\n"
 
-    # Método para tratar a avaliação de expressões
+    def enterMemControl(self, ctx):
+        command = ctx.getChild(0).getText()
+        if command == 'malloc':
+            size = self.evaluate_expression(ctx.expr())
+            ptr = f"ptr{len(self.memory)}"
+            self.memory[ptr] = bytearray(size)
+            self.output += f"Memória alocada: {ptr} com {size} bytes\n"
+        elif command == 'free':
+            ptr = ctx.ID().getText()
+            if ptr in self.memory:
+                del self.memory[ptr]
+                self.output += f"Memória liberada: {ptr}\n"
+            else:
+                self.output += f"Erro: Ponteiro '{ptr}' não encontrado\n"
+
     def evaluate_expression(self, expr_ctx):
         if expr_ctx.NUMBER():
             return int(expr_ctx.NUMBER().getText())
@@ -68,15 +81,20 @@ class PyCInterpreter(PyCListener):
         elif expr_ctx.ID():
             symbol = self.symbol_table.get_symbol(expr_ctx.ID().getText())
             return symbol['value']
+        elif expr_ctx.funcCallExpr():
+            return self.evaluate_function_call(expr_ctx.funcCallExpr())
         elif expr_ctx.arrayAccess():
             array_name = expr_ctx.arrayAccess().ID().getText()
             index = self.evaluate_expression(expr_ctx.arrayAccess().expr())
             array_symbol = self.symbol_table.get_symbol(array_name)
             return array_symbol['value'][index]
-        # Aqui trataremos os operadores (+, -, *, /)
+
         left = self.evaluate_expression(expr_ctx.getChild(0))
         right = self.evaluate_expression(expr_ctx.getChild(2))
         operator = expr_ctx.getChild(1).getText()
+        return self._evaluate_operator(left, right, operator)
+
+    def _evaluate_operator(self, left, right, operator):
         if operator == '+':
             return left + right
         elif operator == '-':
@@ -86,44 +104,78 @@ class PyCInterpreter(PyCListener):
         elif operator == '/':
             return left // right
 
-# Função principal que configura e executa o interpretador
-def main():
-    input_code = """
-    int x = 10;
-    string y = "Hello";
-    array int numbers[5];
-    numbers[0] = 10;
-    x = x + 20;
-    if x > 15: { x = x - 5; }
-    malloc(150);
-    free(ptr0);
-    """
-    
-    # Cria um stream de entrada a partir do código
-    input_stream = InputStream(input_code)
-    
-    # Inicializa o lexer para tokenizar o código
-    lexer = PyCLexer(input_stream)
-    
-    # Cria um stream de tokens a partir do lexer
-    stream = CommonTokenStream(lexer)
-    
-    # Inicializa o parser com os tokens para criar a árvore sintática
-    parser = PyCParser(stream)
-    tree = parser.program()  # Define o ponto inicial do parser
+    def evaluate_function_call(self, func_call_ctx):
+        func_name = func_call_ctx.ID().getText()
+        func_symbol = self.symbol_table.get_symbol(func_name)
+        func_ctx = func_symbol['value']
 
-    # Cria uma instância do interpretador
-    interpreter = PyCInterpreter()
-    
-    # Cria um walker para percorrer a árvore de sintaxe
-    walker = ParseTreeWalker()
-    
-    # Executa o interpretador percorrendo a árvore de sintaxe
-    walker.walk(interpreter, tree)
-    
-    # Exibe a tabela de símbolos após a execução
-    interpreter.symbol_table.print_table()
+        args = []
+        if func_call_ctx.expr():
+            for expr in func_call_ctx.expr():
+                args.append(self.evaluate_expression(expr))
 
-# Ponto de entrada do script
-if __name__ == '__main__':
-    main()
+        self.enterBlock(func_ctx.block())
+
+        if self.return_value is not None:
+            result = self.return_value
+            self.return_value = None  # A função faz o reset do valor de retorno
+            return result
+
+        return 0  # Caso a função não retorne nada, retorna o 0 por padrão
+
+# Função para processar o código inserido pelo usuario
+def process_code():
+    input_code = code_input.get("1.0", tk.END).strip()
+
+    if not input_code:
+        code_output.insert(tk.END, "Nenhum código foi inserido.\n")
+        return
+
+    try:
+        input_stream = InputStream(input_code)
+        lexer = PyCLexer(input_stream)
+        stream = CommonTokenStream(lexer)
+        parser = PyCParser(stream)
+        tree = parser.program()
+
+        interpreter = PyCInterpreter()
+        walker = ParseTreeWalker()
+        walker.walk(interpreter, tree)
+
+        result = interpreter.output + "\n" + interpreter.symbol_table.print_table()
+        code_output.delete("1.0", tk.END)
+        code_output.insert(tk.END, result)
+    except Exception as e:
+        code_output.insert(tk.END, f"Erro ao processar o código: {str(e)}\n")
+
+# Função para limpar as caixas de entrada e saída
+def limpar_tela():
+    code_input.delete("1.0", tk.END)
+    code_output.delete("1.0", tk.END)
+
+# Interface gráfica com Tkinter
+root = tk.Tk()
+root.title("Interpretador da Linguagem PyC")
+
+# Caixa de texto para o usuario inserir o código
+code_input_label = tk.Label(root, text="Insira o código PyC abaixo:")
+code_input_label.pack()
+code_input = scrolledtext.ScrolledText(root, width=60, height=10)
+code_input.pack()
+
+# Botão para enviar o código
+process_button = tk.Button(root, text="Interpretar código", command=process_code)
+process_button.pack()
+
+# Botão para limpar as telas (tela de inserção do código e a tela de resultado)
+limpar_button = tk.Button(root, text="Limpar Telas", command=limpar_tela)
+limpar_button.pack()
+
+# Caixa de texto para exibir o resultado do código do usuario
+code_output_label = tk.Label(root, text="Saída do código:")
+code_output_label.pack()
+code_output = scrolledtext.ScrolledText(root, width=60, height=10)
+code_output.pack()
+
+# Inicia o loop da interface gráfica
+root.mainloop()

@@ -1,4 +1,4 @@
-// PyC.g4 - Gramática da linguagem PyC
+// PyC.g4 - Gramática da linguagem PyC atualizada
 grammar PyC;
 
 program       : statement+ ;
@@ -11,7 +11,7 @@ statement     : declaration           // Declaração de variáveis
               | funcDeclaration       // Declaração de funções
               | funcCall              // Chamadas de funções
               | arrayDeclaration      // Declaração de arrays
-              | memControl            // Gerenciamento de memória
+              | memControl            // Gerenciamento de memória (malloc, free)
               | returnStatement       // Comando de retorno em funções
               ;
 
