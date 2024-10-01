@@ -4,6 +4,7 @@ from antlr4 import *
 from PyCLexer import PyCLexer
 from PyCParser import PyCParser
 from PyCListener import PyCListener
+from antlr4.error.ErrorListener import ErrorListener
 
 # Classe para armazenar símbolos (variáveis, funções, arrays, etc.), além de exibir erros, caso exista
 class SymbolTable:
@@ -30,6 +31,11 @@ class SymbolTable:
         for name, info in self.symbols.items():
             result += f"Nome: {name}, Tipo: {info['type']}, Valor: {info['value']}\n"
         return result
+
+# Classe de tratamento de erros personalizada
+class CustomErrorListener(ErrorListener):
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+        raise RuntimeError(f"Erro de Sintaxe: {msg} na linha {line}, coluna {column}")
 
 # Classe que implementa o interpretador da linguagem PyC
 class PyCInterpreter(PyCListener):
@@ -134,8 +140,18 @@ def process_code():
     try:
         input_stream = InputStream(input_code)
         lexer = PyCLexer(input_stream)
+
+        # Adicionando tratamento de erros
+        lexer.removeErrorListeners()  # Remove os ouvintes de erro padrão
+        lexer.addErrorListener(CustomErrorListener())  # Adiciona o ouvinte de erro customizado
+
         stream = CommonTokenStream(lexer)
         parser = PyCParser(stream)
+
+        # Adicionando tratamento de erros no parser
+        parser.removeErrorListeners()  # Remove os ouvintes de erro padrão
+        parser.addErrorListener(CustomErrorListener())  # Adiciona o ouvinte de erro customizado
+
         tree = parser.program()
 
         interpreter = PyCInterpreter()
@@ -145,6 +161,11 @@ def process_code():
         result = interpreter.output + "\n" + interpreter.symbol_table.print_table()
         code_output.delete("1.0", tk.END)
         code_output.insert(tk.END, result)
+
+    except RuntimeError as e:
+        # Captura erros léxicos
+        code_output.delete("1.0", tk.END)
+        code_output.insert(tk.END, f"Erro ao processar o código: {str(e)}\n")
     except Exception as e:
         code_output.insert(tk.END, f"Erro ao processar o código: {str(e)}\n")
 
@@ -167,7 +188,7 @@ code_input.pack()
 process_button = tk.Button(root, text="Interpretar código", command=process_code)
 process_button.pack()
 
-# Botão para limpar as telas (tela de inserção do código e a tela de resultado)
+# Botão para limpar as telas
 limpar_button = tk.Button(root, text="Limpar Telas", command=limpar_tela)
 limpar_button.pack()
 
