@@ -147,7 +147,6 @@ def process_code():
 
         token_stream = CommonTokenStream(lexer)
         token_stream.fill()  # Carrega todos os tokens
-
         # Exibindo os tokens diretamente
         tokens = token_stream.tokens
         
