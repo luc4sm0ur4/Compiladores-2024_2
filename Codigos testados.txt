@@ -1,0 +1,30 @@
+int a = 5;
+string name = "Alice";
+
+int x = 10;
+int y = 20;
+x = y;  // Atribui o valor de y a x
+
+int result = a + x * y;
+
+if x < y:
+    int max = y;
+else:
+    int max = x;
+
+func int sum(int a, int b):
+    return a + b;
+
+int total = sum(5, 10);
+
+int* ptr;
+ptr = malloc(10);  
+free(ptr);         // Libera a memória
+
+
+int a = 1;
+string b = "Hello";
+if (a == 1) {
+    b = b + " World"; // Concatena " World" a b
+}
+

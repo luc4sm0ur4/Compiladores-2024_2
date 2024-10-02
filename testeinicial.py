@@ -129,7 +129,7 @@ class PyCInterpreter(PyCListener):
 
         return 0  # Caso a função não retorne nada, retorna o 0 por padrão
 
-# Função para processar o código inserido pelo usuario
+# Função para processar o código inserido pelo usuario e retornar lista de tokens
 def process_code():
     input_code = code_input.get("1.0", tk.END).strip()
 
@@ -145,22 +145,29 @@ def process_code():
         lexer.removeErrorListeners()  # Remove os ouvintes de erro padrão
         lexer.addErrorListener(CustomErrorListener())  # Adiciona o ouvinte de erro customizado
 
-        stream = CommonTokenStream(lexer)
-        parser = PyCParser(stream)
+        token_stream = CommonTokenStream(lexer)
+        token_stream.fill()  # Carrega todos os tokens
 
-        # Adicionando tratamento de erros no parser
-        parser.removeErrorListeners()  # Remove os ouvintes de erro padrão
-        parser.addErrorListener(CustomErrorListener())  # Adiciona o ouvinte de erro customizado
+        # Exibindo os tokens diretamente
+        tokens = token_stream.tokens
+        
+        token_output = "Lista de tokens:\n"
+        for token in tokens:
+            # Ignorar tokens invisíveis (como espaços em branco e comentários)
+            if token.type == Token.EOF or token.channel == Token.HIDDEN_CHANNEL:
+                continue
 
-        tree = parser.program()
+            # Verifica se o token tem um nome simbólico válido
+            if 0 <= token.type < len(lexer.symbolicNames):
+                token_name = lexer.symbolicNames[token.type]
+            else:
+                token_name = "TOKEN_DESCONHECIDO"
 
-        interpreter = PyCInterpreter()
-        walker = ParseTreeWalker()
-        walker.walk(interpreter, tree)
+            token_output += f"{token_name} ({token.text})\n"
 
-        result = interpreter.output + "\n" + interpreter.symbol_table.print_table()
+        # Exibindo na interface
         code_output.delete("1.0", tk.END)
-        code_output.insert(tk.END, result)
+        code_output.insert(tk.END, token_output)
 
     except RuntimeError as e:
         # Captura erros léxicos
