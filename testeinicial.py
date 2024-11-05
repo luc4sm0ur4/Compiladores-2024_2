@@ -6,7 +6,7 @@ from PyCParser import PyCParser
 from PyCListener import PyCListener
 from antlr4.error.ErrorListener import ErrorListener
 
-# Classe para armazenar símbolos (variáveis, funções, arrays, etc.), além de exibir erros, caso exista
+# Classe para armazenar símbolos (variáveis, funções, arrays, etc.)
 class SymbolTable:
     def __init__(self):
         self.symbols = {}
@@ -32,10 +32,11 @@ class SymbolTable:
             result += f"Nome: {name}, Tipo: {info['type']}, Valor: {info['value']}\n"
         return result
 
-# Classe de tratamento de erros personalizada
+# Classe de tratamento de erros personalizada para mensagens detalhadas
 class CustomErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        raise RuntimeError(f"Erro de Sintaxe: {msg} na linha {line}, coluna {column}")
+        error_message = f"Erro de Sintaxe na linha {line}, coluna {column}: {msg}"
+        raise RuntimeError(error_message)
 
 # Classe que implementa o interpretador da linguagem PyC
 class PyCInterpreter(PyCListener):
@@ -46,33 +47,40 @@ class PyCInterpreter(PyCListener):
         self.output = ""  # Faz o armazenamento do resultado do processamento
 
     def enterDeclaration(self, ctx):
-        var_type = ctx.getChild(0).getText()
-        var_name = ctx.ID().getText()
+        var_type = ctx.getChild(0).getText() if ctx.getChild(0) else None
+        var_name = ctx.ID(0).getText() if ctx.ID(0) else None
         value = self.evaluate_expression(ctx.expr()) if ctx.expr() else None
-        self.symbol_table.add_symbol(var_name, var_type, value)
-        self.output += f"Declaração: {var_type} {var_name} = {value}\n"
+
+        if var_type and var_name:
+            self.symbol_table.add_symbol(var_name, var_type, value)
+            self.output += f"Declaração: {var_type} {var_name} = {value}\n"
 
     def enterAssignment(self, ctx):
-        var_name = ctx.ID().getText()
-        value = self.evaluate_expression(ctx.expr())
-        self.symbol_table.update_symbol(var_name, value)
-        self.output += f"Atribuição: {var_name} = {value}\n"
+        var_name = ctx.ID().getText() if ctx.ID() else None
+        value = self.evaluate_expression(ctx.expr()) if ctx.expr() else None
+
+        if var_name:
+            self.symbol_table.update_symbol(var_name, value)
+            self.output += f"Atribuição: {var_name} = {value}\n"
 
     def enterArrayDeclaration(self, ctx):
-        array_name = ctx.ID().getText()
-        size = self.evaluate_expression(ctx.expr())
-        self.symbol_table.add_symbol(array_name, 'array', [0] * size)
-        self.output += f"Array {array_name} criado com tamanho {size}\n"
+        array_name = ctx.ID().getText() if ctx.ID() else None
+        size = self.evaluate_expression(ctx.expr()) if ctx.expr() else None
+
+        if array_name and size:
+            self.symbol_table.add_symbol(array_name, 'array', [0] * size)
+            self.output += f"Array {array_name} criado com tamanho {size}\n"
 
     def enterMemControl(self, ctx):
-        command = ctx.getChild(0).getText()
+        command = ctx.getChild(0).getText() if ctx.getChild(0) else None
         if command == 'malloc':
-            size = self.evaluate_expression(ctx.expr())
-            ptr = f"ptr{len(self.memory)}"
-            self.memory[ptr] = bytearray(size)
-            self.output += f"Memória alocada: {ptr} com {size} bytes\n"
+            size = self.evaluate_expression(ctx.expr()) if ctx.expr() else None
+            if size is not None:
+                ptr = f"ptr{len(self.memory)}"
+                self.memory[ptr] = bytearray(size)
+                self.output += f"Memória alocada: {ptr} com {size} bytes\n"
         elif command == 'free':
-            ptr = ctx.ID().getText()
+            ptr = ctx.ID().getText() if ctx.ID() else None
             if ptr in self.memory:
                 del self.memory[ptr]
                 self.output += f"Memória liberada: {ptr}\n"
@@ -80,6 +88,8 @@ class PyCInterpreter(PyCListener):
                 self.output += f"Erro: Ponteiro '{ptr}' não encontrado\n"
 
     def evaluate_expression(self, expr_ctx):
+        if not expr_ctx:
+            return None
         if expr_ctx.NUMBER():
             return int(expr_ctx.NUMBER().getText())
         elif expr_ctx.STRING():
@@ -111,28 +121,23 @@ class PyCInterpreter(PyCListener):
             return left // right
 
     def evaluate_function_call(self, func_call_ctx):
-        func_name = func_call_ctx.ID().getText()
-        func_symbol = self.symbol_table.get_symbol(func_name)
+        func_name = func_call_ctx.ID().getText() if func_call_ctx.ID() else None
+        func_symbol = self.symbol_table.get_symbol(func_name) if func_name else None
+
+        if not func_symbol:
+            return None
+
         func_ctx = func_symbol['value']
-
-        args = []
-        if func_call_ctx.expr():
-            for expr in func_call_ctx.expr():
-                args.append(self.evaluate_expression(expr))
-
+        args = [self.evaluate_expression(expr) for expr in func_call_ctx.expr()]
         self.enterBlock(func_ctx.block())
 
-        if self.return_value is not None:
-            result = self.return_value
-            self.return_value = None  # A função faz o reset do valor de retorno
-            return result
+        result = self.return_value if self.return_value is not None else 0
+        self.return_value = None  # Reset após retorno
+        return result
 
-        return 0  # Caso a função não retorne nada, retorna o 0 por padrão
-
-# Função para processar o código inserido pelo usuario e retornar lista de tokens
+# Função para processar o código inserido e validar sintaxe e semântica
 def process_code():
     input_code = code_input.get("1.0", tk.END).strip()
-
     if not input_code:
         code_output.insert(tk.END, "Nenhum código foi inserido.\n")
         return
@@ -140,69 +145,55 @@ def process_code():
     try:
         input_stream = InputStream(input_code)
         lexer = PyCLexer(input_stream)
-
-        # Adicionando tratamento de erros
-        lexer.removeErrorListeners()  # Remove os ouvintes de erro padrão
-        lexer.addErrorListener(CustomErrorListener())  # Adiciona o ouvinte de erro customizado
+        lexer.removeErrorListeners()
+        lexer.addErrorListener(CustomErrorListener())
 
         token_stream = CommonTokenStream(lexer)
-        token_stream.fill()  # Carrega todos os tokens
-        # Exibindo os tokens diretamente
-        tokens = token_stream.tokens
-        
-        token_output = "Lista de tokens:\n"
-        for token in tokens:
-            # Ignorar tokens invisíveis (como espaços em branco e comentários)
-            if token.type == Token.EOF or token.channel == Token.HIDDEN_CHANNEL:
-                continue
+        parser = PyCParser(token_stream)
+        parser.removeErrorListeners()
+        parser.addErrorListener(CustomErrorListener())
 
-            # Verifica se o token tem um nome simbólico válido
-            if 0 <= token.type < len(lexer.symbolicNames):
-                token_name = lexer.symbolicNames[token.type]
-            else:
-                token_name = "TOKEN_DESCONHECIDO"
+        # Analisar a árvore sintática
+        tree = parser.program()
 
-            token_output += f"{token_name} ({token.text})\n"
+        interpreter = PyCInterpreter()
+        walker = ParseTreeWalker()
+        walker.walk(interpreter, tree)
 
-        # Exibindo na interface
+        result = interpreter.output + "\n" + interpreter.symbol_table.print_table()
         code_output.delete("1.0", tk.END)
-        code_output.insert(tk.END, token_output)
+        code_output.insert(tk.END, result)
 
     except RuntimeError as e:
-        # Captura erros léxicos
         code_output.delete("1.0", tk.END)
         code_output.insert(tk.END, f"Erro ao processar o código: {str(e)}\n")
     except Exception as e:
-        code_output.insert(tk.END, f"Erro ao processar o código: {str(e)}\n")
+        code_output.insert(tk.END, f"Erro inesperado: {str(e)}\n")
 
-# Função para limpar as caixas de entrada e saída
+# Função para limpar a interface
 def limpar_tela():
     code_input.delete("1.0", tk.END)
     code_output.delete("1.0", tk.END)
 
 # Interface gráfica com Tkinter
 root = tk.Tk()
-root.title("Interpretador da Linguagem PyC")
+root.title("Interpretador e Analisador Sintático - PyC")
 
-# Caixa de texto para o usuario inserir o código
+# Interface de entrada e saída
 code_input_label = tk.Label(root, text="Insira o código PyC abaixo:")
 code_input_label.pack()
 code_input = scrolledtext.ScrolledText(root, width=60, height=10)
 code_input.pack()
 
-# Botão para enviar o código
-process_button = tk.Button(root, text="Interpretar código", command=process_code)
+process_button = tk.Button(root, text="Interpretar e Analisar", command=process_code)
 process_button.pack()
 
-# Botão para limpar as telas
 limpar_button = tk.Button(root, text="Limpar Telas", command=limpar_tela)
 limpar_button.pack()
 
-# Caixa de texto para exibir o resultado do código do usuario
-code_output_label = tk.Label(root, text="Saída do código:")
+code_output_label = tk.Label(root, text="Saída:")
 code_output_label.pack()
 code_output = scrolledtext.ScrolledText(root, width=60, height=10)
 code_output.pack()
 
-# Inicia o loop da interface gráfica
 root.mainloop()
