@@ -32,19 +32,37 @@ class SymbolTable:
             result += f"Nome: {name}, Tipo: {info['type']}, Valor: {info['value']}\n"
         return result
 
-# Classe de tratamento de erros personalizada para mensagens detalhadas
+# Classe para detalhar mensagens de erro léxico e sintático
 class CustomErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         error_message = f"Erro de Sintaxe na linha {line}, coluna {column}: {msg}"
         raise RuntimeError(error_message)
 
-# Classe que implementa o interpretador da linguagem PyC
+    def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs):
+        error_message = f"Ambiguidade detectada entre tokens na linha {startIndex}-{stopIndex}"
+        raise RuntimeError(error_message)
+
+# Classe para representar nós da Árvore Sintática Abstrata (AST)
+class ASTNode:
+    def __init__(self, node_type, children=None, value=None):
+        self.node_type = node_type
+        self.children = children if children else []
+        self.value = value
+
+    def add_child(self, child):
+        self.children.append(child)
+
+    def __str__(self):
+        return f"{self.node_type}({self.value})"
+
+# Classe que implementa o interpretador da linguagem PyC e gera a AST
 class PyCInterpreter(PyCListener):
     def __init__(self):
         self.symbol_table = SymbolTable()
         self.memory = {}
         self.return_value = None
-        self.output = ""  # Faz o armazenamento do resultado do processamento
+        self.output = ""
+        self.ast_root = ASTNode("program")  # Raiz da AST
 
     def enterDeclaration(self, ctx):
         var_type = ctx.getChild(0).getText() if ctx.getChild(0) else None
@@ -53,15 +71,30 @@ class PyCInterpreter(PyCListener):
 
         if var_type and var_name:
             self.symbol_table.add_symbol(var_name, var_type, value)
+            node = ASTNode("declaration", value=f"{var_type} {var_name} = {value}")
+            self.ast_root.add_child(node)
             self.output += f"Declaração: {var_type} {var_name} = {value}\n"
 
     def enterAssignment(self, ctx):
         var_name = ctx.ID().getText() if ctx.ID() else None
+        assign_op = ctx.getChild(1).getText()
         value = self.evaluate_expression(ctx.expr()) if ctx.expr() else None
 
         if var_name:
+            current_value = self.symbol_table.get_symbol(var_name).get("value", 0)
+            if assign_op == "+=":
+                value += current_value
+            elif assign_op == "-=":
+                value -= current_value
+            elif assign_op == "*=":
+                value *= current_value
+            elif assign_op == "/=":
+                value //= current_value
+
             self.symbol_table.update_symbol(var_name, value)
-            self.output += f"Atribuição: {var_name} = {value}\n"
+            node = ASTNode("assignment", value=f"{var_name} {assign_op} {value}")
+            self.ast_root.add_child(node)
+            self.output += f"Atribuição: {var_name} {assign_op} {value}\n"
 
     def enterArrayDeclaration(self, ctx):
         array_name = ctx.ID().getText() if ctx.ID() else None
@@ -69,6 +102,8 @@ class PyCInterpreter(PyCListener):
 
         if array_name and size:
             self.symbol_table.add_symbol(array_name, 'array', [0] * size)
+            node = ASTNode("arrayDeclaration", value=f"{array_name}[{size}]")
+            self.ast_root.add_child(node)
             self.output += f"Array {array_name} criado com tamanho {size}\n"
 
     def enterMemControl(self, ctx):
@@ -119,6 +154,8 @@ class PyCInterpreter(PyCListener):
             return left * right
         elif operator == '/':
             return left // right
+        elif operator == '%':
+            return left % right
 
     def evaluate_function_call(self, func_call_ctx):
         func_name = func_call_ctx.ID().getText() if func_call_ctx.ID() else None
@@ -135,6 +172,25 @@ class PyCInterpreter(PyCListener):
         self.return_value = None  # Reset após retorno
         return result
 
+# Função para mostrar tokens para depuração
+def show_tokens(input_code):
+    input_stream = InputStream(input_code)
+    lexer = PyCLexer(input_stream)
+    token_stream = CommonTokenStream(lexer)
+    token_stream.fill()
+    
+    tokens_output = "Tokens:\n"
+    for token in token_stream.tokens:
+        token_name = lexer.symbolicNames[token.type] if 0 <= token.type < len(lexer.symbolicNames) else "UNKNOWN"
+        
+        # Ignorar tokens desconhecidos para a saída
+        if token_name == "UNKNOWN":
+            continue
+
+        tokens_output += f"{token_name} ({token.text})\n"
+    
+    return tokens_output
+
 # Função para processar o código inserido e validar sintaxe e semântica
 def process_code():
     input_code = code_input.get("1.0", tk.END).strip()
@@ -143,6 +199,10 @@ def process_code():
         return
 
     try:
+        # Exibir tokens para depuração
+        tokens_output = show_tokens(input_code)
+        code_output.insert(tk.END, tokens_output + "\n")
+
         input_stream = InputStream(input_code)
         lexer = PyCLexer(input_stream)
         lexer.removeErrorListeners()
@@ -161,11 +221,9 @@ def process_code():
         walker.walk(interpreter, tree)
 
         result = interpreter.output + "\n" + interpreter.symbol_table.print_table()
-        code_output.delete("1.0", tk.END)
         code_output.insert(tk.END, result)
 
     except RuntimeError as e:
-        code_output.delete("1.0", tk.END)
         code_output.insert(tk.END, f"Erro ao processar o código: {str(e)}\n")
     except Exception as e:
         code_output.insert(tk.END, f"Erro inesperado: {str(e)}\n")
@@ -177,7 +235,7 @@ def limpar_tela():
 
 # Interface gráfica com Tkinter
 root = tk.Tk()
-root.title("Interpretador e Analisador Sintático - PyC")
+root.title("Interpretador e Analisador PyC - v3.0")
 
 # Interface de entrada e saída
 code_input_label = tk.Label(root, text="Insira o código PyC abaixo:")
