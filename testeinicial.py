@@ -79,6 +79,22 @@ class SemanticAnalyzer:
                 f"Esperado '{var_type}', mas recebido '{type(value).__name__}'"
             )
 
+    def check_function_call(self, func_name, args):
+        try:
+            func_symbol = self.symbol_table.get_symbol(func_name)
+            if func_symbol['type'] != 'function':
+                self.errors.append(f"Erro semântico: '{func_name}' não é uma função.")
+                return
+
+            expected_params = func_symbol.get('params', [])
+            if len(args) != len(expected_params):
+                self.errors.append(
+                    f"Erro semântico: Número incorreto de argumentos para '{func_name}'. "
+                    f"Esperado {len(expected_params)}, recebido {len(args)}."
+                )
+        except ValueError as e:
+            self.errors.append(str(e))
+
     def is_type_compatible(self, var_type, value):
         if var_type == "int" and isinstance(value, int):
             return True
@@ -260,7 +276,7 @@ def limpar_tela():
 
 # Interface gráfica com Tkinter
 root = tk.Tk()
-root.title("Interpretador e Analisador PyC - v4.0")
+root.title("Interpretador e Analisador PyC - v4.2")
 
 code_input_label = tk.Label(root, text="Insira o código PyC abaixo:")
 code_input_label.pack()
